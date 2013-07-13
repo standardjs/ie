@@ -20,8 +20,8 @@
  * @param {constructor} Helper - constructs the helper object
  * @param {object} helperProperties - properties to be copied to the prototype of the Helper
  */
-(function ie$factory(scope, ie, Helper, helperProperties) {
-    'use strict';
+(function (scope, ie, Helper, helperProperties) {
+    
 
     scope.ie = ie;
 
@@ -31,8 +31,7 @@
     if (helperProperties.createType) {
         helperProperties.createType(Object, Helper, helperProperties); //implement inheritance
     }
-    ie.factory = ie$factory;
-    
+    ie.factory = arguments.callee;    
 })(
 
     window,
@@ -51,7 +50,7 @@
      * @classdesc used to create all the helper methods of the ie function
      /**
      */
-    function IE() {},
+    function ie_Helper() {},
 
     {
         /**
@@ -59,7 +58,7 @@
          * @param BaseType - Constructor for the base type
          * @param NewType - 
          */
-        createType: function iE_createType(BaseType, NewType, prototype) {
+        createType: function ie_Helper_createType(BaseType, NewType, prototype) {
             var property;
             if (BaseType != Object) {   
                 NewType.prototype = new BaseType();
