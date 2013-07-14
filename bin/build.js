@@ -27,5 +27,6 @@ var exec = require('child_process').exec,
       function(err,stdout,stderr){
           console.log(arguments)
       });
+      exec("jsdoc "+scripts+" -d ../doc")
 
      

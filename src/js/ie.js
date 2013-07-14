@@ -8,20 +8,12 @@
  *
 **/
 
-
+/**@ignore**/
 var DEBUG = true;
 
 ////////////////////////////////////
 (
-/**
- * factory method for ie
- * @name (anonymous)
- * @function 
- * @param scope - the window object
- * @param ie - the core function
- * @param ie_Helper - the helper type for ie
- * @param ie_Helper_prototype - the properties for the prototype
- */
+/**@ignore**/
 function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
     
     scope.ie = ie;
@@ -41,26 +33,31 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
 
     window,
 
-    /** public interface
+    /** public method
     *   @param {HTMLElement|Array|Collection}
+    *   @param {String|String[]} [include] - the modules (must be preloaded) to apply to the elements
+    *   @param {String|String[]} [exclude] - modules to exclude from the call
     */
 
     function ie(elementOrCollection, include, exclude) {
         for (var i=0,l=elementOrCollection.length; i!=l;i++) {
             if (include) {
-                ie[include].implement(elementOrCollection[i])
+                ie[include].implement.apply(elementOrCollection[i])
             };
         }
         return elementOrCollection;
     },
 
     /**
-    *
+    *   members of the (ie) public method
     */
     { 
         /**
          * registers a module with ie
+         * @memberOf {ie}
          * @this {ie}
+         * @param {String} a unique name for the module
+         * @param {Object|Function}
          */
         register: function ie_register(moduleName, definition) {
             if (DEBUG) {
@@ -72,6 +69,20 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
             if (this.global && definition.publish) {
                 definition.publish(this.scope);
             }
+        },
+        /**
+         * registers a module with ie
+         * @this {ie}
+         */
+        extend: function ie_extend(moduleName,definition) {
+            var existingModule = this[moduleName],
+                currentImplement = existingModule.implement,
+                newImplement = definition.implement;
+            existingModule.implement = function () {
+                currentImplement.apply(this);
+                newImplement.apply(this);
+            }
+
         }
     },
 
@@ -103,6 +114,14 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
             for (property in NewType_prototype) {
                 NewType.prototype[property] = NewType_prototype[property]; 
             }
+        },
+        createFastMapperFunction: function ie_Helper_createFastMapperFunction(object) {
+            var membersToMap = [];
+            for (var i in object) {
+                membersToMap.push("t."+i+"=s."+i);
+            }
+            membersToMap.push('return t')
+            return new Function("t","s",membersToMap.join(";"))
         }
 
     }

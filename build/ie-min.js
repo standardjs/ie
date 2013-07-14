@@ -1,5 +1,5 @@
 /*
- ieJS v1.0.7
+ ieJS 
  (c) 2013 Christian Bodart https://github.com/standardjs/ie
  License: MIT
 
@@ -7,4 +7,5 @@
  @version 0.0
 
 */
-(function(c,a,d,b,e){c.d=a;a.scope=c;for(var f in d)a[f]=d[f];a.c=new b;e.a&&e.a(Object,b,e);a.factory=arguments.callee})(window,function g(a,d){for(var b=0,e=a.length;b!=e;b++)d&&g[d].e(a[b]);return a},{f:function(c,a){if(c in this)throw Error("ie.define - module ["+c+"] already defined");this[c]="function"==typeof a?a(this):a;this.global&&a.b&&a.b(this.scope)}},function(){},{a:function(c,a,d){var b;c!=Object&&(a.prototype=new c);for(b in d)a.prototype[b]=d[b]}});
+(function(c,a,b,d,e){c.f=a;a.scope=c;for(var f in b)a[f]=b[f];a.e=new d;e.b&&e.b(Object,d,e);a.factory=arguments.callee})(window,function g(a,b){for(var d=0,e=a.length;d!=e;d++)b&&g[b].a.apply(a[d]);return a},{g:function(c,a){if(c in this)throw Error("ie.define - module ["+c+"] already defined");this[c]="function"==typeof a?a(this):a;this.global&&a.c&&a.c(this.scope)},extend:function(c,a){var b=this[c],d=b.a,e=a.a;b.a=function(){d.apply(this);e.apply(this)}}},function(){},{b:function(c,a,b){var d;
+c!=Object&&(a.prototype=new c);for(d in b)a.prototype[d]=b[d]},d:function(c){var a=[],b;for(b in c)a.push("t."+b+"=s."+b);a.push("return t");return new Function("t","s",a.join(";"))}});

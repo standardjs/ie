@@ -33,19 +33,50 @@ describe("ie global tests", function() {
   })
   it ("should be able to register modules", function () {
     ie.register("TestModule",
-      function (ie) {
+      function () {
         return {
           publish: function (scope) {
             scope.Tested = {}
           },
-          implement: function (element) {
-            element.tested = true;
+          implement: function () {
+            this.tested = true;
           }
         }
       }
     );
     ie(elementArray,"TestModule")
     expect(elementArray[0].tested).toBe(true)
+
+  });
+  it("mapping function is the same as iteration", function () {
+    var obj = {
+      foo: "foo",
+      Zoo: function () {},
+      noo: {},
+      loo: 1
+    },
+      iteratedObj = {};
+    for (var i in obj) {
+      iteratedObj[i] = obj[i];
+    }
+    
+    function objectsAreTheSame(a,b) {
+      for (var p in a) {
+        if (a[p] !== b[p]) return false
+      }
+    for (p in b) {
+        if (a[p] !== b[p]) return false
+      }
+    return true;
+
+    }
+    var mapper = ie.helper.createFastMapperFunction(obj),
+        newObj = {},
+        same = objectsAreTheSame(newObj,obj)
+    expect(same).toBe(false,"objects should not have the same properties");
+    mapper(newObj,obj);
+    same = objectsAreTheSame(newObj,obj)
+    expect(same).toBe(true,"objects don't have the same properties")
 
   });
   

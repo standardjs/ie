@@ -1,5 +1,6 @@
+var elementInterfaces = {A:"Anchor", BR:"BR", DATALIST:"DataList", DL:"DList", FIELDSET:"FieldSet", FRAMESET:"FrameSet", HR:"HR", IFRAME:"IFrame", IMG:"Image", LI:"List", OL:"OList", OPTGROUP:"OptGroup", P:"Paragraph", CAPTION:" TableCaption", TD:"TableDataCell", TH:"TableHeaderCell", COL:"TableCol", COLGROUP:"TableCol", TR:" TableRow", TBODY:"TableSection", THEAD:"TableSection", TFOOR:"TableSection", TEXTAREA:"TextArea", UL:"UList"};
 /*
- ieJS v1.0.7
+ ieJS 
  (c) 2013 Christian Bodart https://github.com/standardjs/ie
  License: MIT
 
@@ -22,7 +23,7 @@ var DEBUG = true;
 })(window, function ie(elementOrCollection, include, exclude) {
   for(var i = 0, l = elementOrCollection.length;i != l;i++) {
     if(include) {
-      ie[include].implement(elementOrCollection[i])
+      ie[include].implement.apply(elementOrCollection[i])
     }
   }
   return elementOrCollection
@@ -36,6 +37,12 @@ var DEBUG = true;
   if(this.global && definition.publish) {
     definition.publish(this.scope)
   }
+}, extend:function ie_extend(moduleName, definition) {
+  var existingModule = this[moduleName], currentImplement = existingModule.implement, newImplement = definition.implement;
+  existingModule.implement = function() {
+    currentImplement.apply(this);
+    newImplement.apply(this)
+  }
 }}, function ie_Helper() {
 }, {createType:function ie_Helper_createType(BaseType, NewType, NewType_prototype) {
   var property;
@@ -46,5 +53,12 @@ var DEBUG = true;
   for(property in NewType_prototype) {
     NewType.prototype[property] = NewType_prototype[property]
   }
+}, createFastMapperFunction:function ie_Helper_createFastMapperFunction(object) {
+  var membersToMap = [];
+  for(var i in object) {
+    membersToMap.push("t." + i + "=s." + i)
+  }
+  membersToMap.push("return t");
+  return new Function("t", "s", membersToMap.join(";"))
 }});
 
