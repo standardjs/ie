@@ -33,7 +33,7 @@ describe("ie global tests", function() {
   })
   it ("should be able to register modules", function () {
     ie.register("TestModule",
-      function () {
+      function (ie) {
         return {
           publish: function (scope) {
             scope.Tested = {}

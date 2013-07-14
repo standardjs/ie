@@ -14,11 +14,18 @@ var exec = require('child_process').exec,
       }
       return scripts;
     };
-    exec("java -jar compiler.jar --js "+getScriptsFromDirectory().join(" ")+" --define=DEBUG=false --js_output_file ../build/ie-min.js" ,
+    var scripts = getScriptsFromDirectory().join(" ")
+    exec("java -jar compiler.jar --js "+scripts+" --compilation_level ADVANCED_OPTIMIZATIONS --js_output_file ../build/ie-min.js" ,
       function(err,stdout,stderr){
           console.log(arguments)
       });
-     exec("java -jar compiler.jar --js "+getScriptsFromDirectory().join(" ")+" --js_output_file ../build/ie-min-debug.js" ,
+     exec("java -jar compiler.jar --js "+scripts+" --js_output_file ../build/ie-min-debug.js" ,
       function(err,stdout,stderr){
           console.log(arguments)
       });
+      exec("java -jar compiler.jar --js "+scripts+" --compilation_level WHITESPACE_ONLY  --formatting PRETTY_PRINT --js_output_file ../build/ie-min-dev.js" ,
+      function(err,stdout,stderr){
+          console.log(arguments)
+      });
+
+     

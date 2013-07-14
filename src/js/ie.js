@@ -1,5 +1,5 @@
 /**
- * @license ieJS v1.0.7
+ * @license ieJS 
  * (c) 2013 Christian Bodart https://github.com/standardjs/ie
  * License: MIT
  *
@@ -9,12 +9,9 @@
 **/
 
 
-
-////////////////////////////////////
-
-/** @define {boolean} */
 var DEBUG = true;
 
+////////////////////////////////////
 (
 /**
  * factory method for ie
@@ -27,7 +24,6 @@ var DEBUG = true;
  */
 function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
     
-
     scope.ie = ie;
     ie.scope = scope;
     for (var i in ie_static) {
@@ -50,6 +46,11 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
     */
 
     function ie(elementOrCollection, include, exclude) {
+        for (var i=0,l=elementOrCollection.length; i!=l;i++) {
+            if (include) {
+                ie[include].implement(elementOrCollection[i])
+            };
+        }
         return elementOrCollection;
     },
 
@@ -57,13 +58,17 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
     *
     */
     { 
+        /**
+         * registers a module with ie
+         * @this {ie}
+         */
         register: function ie_register(moduleName, definition) {
             if (DEBUG) {
                 if (moduleName in this) {
                     throw new Error('ie.define - module ['+moduleName+'] already defined');
                 }
             }
-            this[moduleName] = definition;
+            this[moduleName] = typeof definition == "function" ? definition(this) : definition;
             if (this.global && definition.publish) {
                 definition.publish(this.scope);
             }
