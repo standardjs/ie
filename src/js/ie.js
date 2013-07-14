@@ -7,10 +7,7 @@
  * @version 0.0
  *
 **/
-
-/** @define {boolean} */
 var DEBUG = true;
-
 ////////////////////////////////////
 (
 
@@ -22,8 +19,7 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
         ie[i] = ie_static[i];
     }
 
-    ie['helper'] = new ie_Helper();
-
+    ie.helper = new ie_Helper();
 
     if (ie_Helper_prototype.createType) {
         ie_Helper_prototype.createType(Object, ie_Helper, ie_Helper_prototype); //implement inheritance
@@ -42,7 +38,7 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
     function ie(elementOrCollection, include, exclude) {
         for (var i=0,l=elementOrCollection.length; i!=l;i++) {
             if (include) {
-                ie[include].implement.apply(elementOrCollection[i])
+                arguments.callee[include].implement.apply(elementOrCollection[i])
             };
         }
         return elementOrCollection;
@@ -75,10 +71,10 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
          * @this {ie}
          */
         extend: function ie_extend(moduleName,definition) {
-            var existingModule = this[moduleName],
+            var existingModule = ie.helper[moduleName],
                 currentImplement = existingModule.implement,
                 newImplement = definition.implement;
-            existingModule.implement = function () {
+            existingModule.implement = function ie_extend_implement() {
                 currentImplement.apply(this);
                 newImplement.apply(this);
             }

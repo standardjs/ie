@@ -1,0 +1,6 @@
+{
+	"output" : "ie.dom.element",
+	"files": [
+		"js/ie.dom.elements.js"
+	]
+}
