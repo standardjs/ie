@@ -26,11 +26,28 @@ describe("ie global tests", function() {
   })
   it("You should be able to redefine ie completely", function () {
     var tempIE = ie;
-    ie.factory(window,function newIE() {},function NewIEHelper(){},{createType: function(){}})
+    ie.factory(window,function newIE() {},{},function NewIEHelper(){},{createType: function(){}})
     expect(ie === tempIE).toBe(false);
     ie = tempIE;
 
   })
+  it ("should be able to register modules", function () {
+    ie.register("TestModule",
+      function () {
+        return {
+          publish: function (scope) {
+            scope.Tested = {}
+          },
+          implement: function (element) {
+            element.tested = true;
+          }
+        }
+      }
+    );
+    ie(elementArray,"TestModule")
+    expect(elementArray[0].tested).toBe(true)
+
+  });
   
 
 
