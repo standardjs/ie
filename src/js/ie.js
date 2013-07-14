@@ -11,6 +11,10 @@
 
 
 ////////////////////////////////////
+
+/** @define {boolean} */
+var DEBUG = true;
+
 (
 /**
  * factory method for ie
@@ -41,11 +45,19 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
 
     window,
 
+    /** public interface
+    *   @param {HTMLElement|Array|Collection}
+    */
+
+    function ie(elementOrCollection, include, exclude) {
+        return elementOrCollection;
+    },
+
     /**
     *
     */
     { 
-        extend: function ie_define(moduleName, definition) {
+        register: function ie_register(moduleName, definition) {
             if (DEBUG) {
                 if (moduleName in this) {
                     throw new Error('ie.define - module ['+moduleName+'] already defined');
@@ -56,13 +68,6 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
                 definition.publish(this.scope);
             }
         }
-    },
-    /** public interface
-    *   @param {HTMLElement|Array|Collection}
-    */
-
-    function ie(elementOrCollection, include, exclude) {
-        return elementOrCollection;
     },
 
 
