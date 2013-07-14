@@ -8,12 +8,12 @@
  *
 **/
 
-/**@ignore**/
+/** @define {boolean} */
 var DEBUG = true;
 
 ////////////////////////////////////
 (
-/**@ignore**/
+
 function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
     
     scope.ie = ie;
@@ -22,7 +22,7 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
         ie[i] = ie_static[i];
     }
 
-    ie.helper = new ie_Helper();
+    ie['helper'] = new ie_Helper();
 
 
     if (ie_Helper_prototype.createType) {
@@ -33,7 +33,7 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
 
     window,
 
-    /** public method
+    /** public interface
     *   @param {HTMLElement|Array|Collection}
     *   @param {String|String[]} [include] - the modules (must be preloaded) to apply to the elements
     *   @param {String|String[]} [exclude] - modules to exclude from the call
@@ -105,14 +105,20 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
          * @param {Constructor} - Constructor for the new type
          * @param {object} - properties for the prototype
          */
-        createType: function ie_Helper_createType(BaseType, NewType, NewType_prototype) {
+        createType: function ie_Helper_createType(BaseType, NewType, instance, statics, shared) {
             var property;
             if (BaseType != Object) {   
                 NewType.prototype = new BaseType();
                 NewType.prototype.constructor = NewType;
             }
-            for (property in NewType_prototype) {
-                NewType.prototype[property] = NewType_prototype[property]; 
+            for (property in instance) {
+                NewType.prototype[property] = instance[property]; 
+            }
+            for (property in statics) {
+                NewType[property] = statics[property];
+            }
+            for (property in shared) {
+                NewType[property] = NewType.prototype[property] = shared[property];
             }
         },
         createFastMapperFunction: function ie_Helper_createFastMapperFunction(object) {
