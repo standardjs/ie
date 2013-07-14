@@ -3,7 +3,8 @@
     createType(Object, ie_DOMElements_constructor, ie_DOMElements_instance);
     for (var i = 0; i != definitions.length; i++) {
         definition = definitions[i];
-        namedConstructors[definition.name] = createType(namedConstructors[definition.parent] || Object, definition.constructor, definition.instance, definition.statics, definition.shared);
+        createType(namedConstructors[definition.parent] || Object, definition.constructor, definition.instance, definition.statics, definition.shared);
+        namedConstructors[definition.name] = definition.constructor;
     }
     domElements = new ie_DOMElements_constructor();
     domElements.constructors = namedConstructors;

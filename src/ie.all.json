@@ -1,0 +1,6 @@
+{
+	"output" : "ie.all",
+	"files" : [
+		"js/ie.js","js/ie.dom.elements.js"
+	]
+}

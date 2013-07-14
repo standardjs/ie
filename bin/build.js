@@ -32,6 +32,10 @@ var exec = require('child_process').exec,
      exec("uglifyjs "+files+" -o ../build/debug-min/"+output+".js -s -d DEBUG=true",log)
      exec("uglifyjs "+files+" -o ../build/dev/"+output+".js -b -d DEBUG=true --comments all",log);
      exec("jsdoc "+files+" -d ../doc")
+     console.log(output)
+     if (/\.all$/.test(output)) {
+        exec("uglifyjs "+files+" -o ../src/js/"+output+".js -b -d DEBUG=true --comments all",log);
+     }
     }
 
     function log(a,b,c) {
