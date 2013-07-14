@@ -1,11 +1,24 @@
-(function(definitions) {
-    var namedConstructors = {}, createType = ie.helper.createType, definition;
+(function(ie_DOMElements_constructor, ie_DOMElements_instance, definitions) {
+    var namedConstructors = {}, createType = ie.helper.createType, definition, domElements;
+    createType(Object, ie_DOMElements_constructor, ie_DOMElements_instance);
     for (var i = 0; i != definitions.length; i++) {
         definition = definitions[i];
         namedConstructors[definition.name] = createType(namedConstructors[definition.parent] || Object, definition.constructor, definition.instance, definition.statics, definition.shared);
     }
-    return namedConstructors;
-})([ {
+    domElements = new ie_DOMElements_constructor();
+    domElements.constructors = namedConstructors;
+    ie.register("DOMElements", domElements);
+    return domElements;
+})(function ie_DOMElements() {}, {
+    publish: function ie_domElements_publish() {
+        var constructors = this.constructors;
+        for (var i in constructors) {
+            if (!window[i]) {
+                window[i] = constructors[i];
+            }
+        }
+    }
+}, [ {
     name: "Node",
     constructor: function IENode() {},
     instance: {},

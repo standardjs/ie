@@ -59,13 +59,13 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
          */
         register: function ie_register(moduleName, definition) {
             if (DEBUG) {
-                if (moduleName in this) {
+                if (moduleName in ie) {
                     throw new Error('ie.define - module ['+moduleName+'] already defined');
                 }
             }
-            this[moduleName] = typeof definition == "function" ? definition(this) : definition;
-            if (this.global && definition.publish) {
-                definition.publish(this.scope);
+            ie[moduleName] = typeof definition == "function" ? definition(this) : definition;
+            if (ie.global && definition.publish) {
+                definition.publish(ie.scope);
             }
         },
         /**
@@ -118,6 +118,7 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
             for (property in shared) {
                 NewType[property] = NewType.prototype[property] = shared[property];
             }
+            return NewType;
         },
         createFastMapperFunction: function ie_Helper_createFastMapperFunction(object) {
             var membersToMap = [];

@@ -1,5 +1,5 @@
 {
-	"output" : "ie.dom.element",
+	"output" : "ie.dom.elements",
 	"files": [
 		"js/ie.dom.elements.js"
 	]
