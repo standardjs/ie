@@ -4,6 +4,7 @@
         definition = definitions[i];
         namedConstructors[definition.name] = createType(namedConstructors[definition.parent] || Object, definition.constructor, definition.instance, definition.statics, definition.shared);
     }
+    return namedConstructors;
 })([ {
     name: "Node",
     constructor: function IENode() {},

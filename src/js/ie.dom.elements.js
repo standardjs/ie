@@ -12,6 +12,7 @@
 			definition.shared
 		);
 	}
+	return namedConstructors;
 
 })(
 	[

@@ -27,7 +27,7 @@ describe("ie global tests", function() {
     expect(typeof ie.helper == "object").toBe(true)
   })
     it("should be marked as global", function () {
-    expect(ie.public == true).toBe(true)
+    expect(ie.global == true).toBe(true)
   })
   it("You should be able to redefine ie completely", function () {
     var tempIE = ie;

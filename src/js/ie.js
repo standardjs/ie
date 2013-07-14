@@ -13,7 +13,7 @@ var DEBUG = true;
 (
 
 function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
-    
+    ie.global = !(document.getElementById("standards.ie").getAttribute("data-global") == "false");
     scope.ie = ie;
     ie.scope = scope;
     for (var i in ie_static) {
@@ -49,6 +49,7 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
     *   members of the (ie) public method
     */
     { 
+        global: true,
         /**
          * registers a module with ie
          * @memberOf {ie}
