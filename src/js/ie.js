@@ -9,6 +9,7 @@
 **/
 var DEBUG = true;
 ////////////////////////////////////
+
 (
 
 function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {

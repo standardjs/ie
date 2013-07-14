@@ -7,6 +7,8 @@ describe("ie global tests", function() {
     arrayLength = elementArray.length;
     results = ie(elementArray);
   })
+
+
    
   it("should be a global function", function () {
     expect(typeof ie == "function").toBe(true)
@@ -23,6 +25,9 @@ describe("ie global tests", function() {
   })
   it("should provide access to its helper object", function () {
     expect(typeof ie.helper == "object").toBe(true)
+  })
+    it("should be marked as global", function () {
+    expect(ie.public == true).toBe(true)
   })
   it("You should be able to redefine ie completely", function () {
     var tempIE = ie;
