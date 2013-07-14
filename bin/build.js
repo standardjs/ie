@@ -30,23 +30,7 @@ var exec = require('child_process').exec,
      // exec("java -jar compiler.jar --js "+files+" --compilation_level WHITESPACE_ONLY --formatting PRETTY_PRINT --js_output_file ../build/dev/"+output+".js")
      exec("uglifyjs "+files+" -o ../build/min/"+output+".js -s -d DEBUG=false -m -c dead_code=true")
      exec("uglifyjs "+files+" -o ../build/debug/"+output+".js -s -d DEBUG=true")
-     exec("uglifyjs "+files+" -o ../build/dev/"+output+".js -b -d DEBUG=true --comments all")
+     exec("uglifyjs "+files+" -o ../build/dev/"+output+".js -b -d DEBUG=true --comments all");
+     exec("jsdoc "+files+" -d ../doc")
     }
 
-    /*
-    var scripts = getScriptsFromDirectory().join(" ")
-    exec("java -jar compiler.jar --js "+scripts+" --compilation_level ADVANCED_OPTIMIZATIONS --js_output_file ../build/ie-min.js" ,
-      function(err,stdout,stderr){
-          console.log(arguments)
-      });
-     exec("java -jar compiler.jar --js "+scripts+" --js_output_file ../build/ie-min-debug.js" ,
-      function(err,stdout,stderr){
-          console.log(arguments)
-      });
-      exec("java -jar compiler.jar --js "+scripts+" --compilation_level WHITESPACE_ONLY  --formatting PRETTY_PRINT --js_output_file ../build/ie-min-dev.js" ,
-      function(err,stdout,stderr){
-          console.log(arguments)
-      });
-      exec("jsdoc "+scripts+" -d ../doc")
-
-     */

@@ -1,0 +1,6 @@
+{
+	"output" : "ie",
+	"files" : [
+		"js/ie.js"
+	]
+}
