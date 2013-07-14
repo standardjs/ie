@@ -1,4 +1,4 @@
-var elementInterfaces={A:"Anchor",BR:"BR",DATALIST:"DataList",DL:"DList",FIELDSET:"FieldSet",FRAMESET:"FrameSet",HR:"HR",IFRAME:"IFrame",IMG:"Image",LI:"List",OL:"OList",OPTGROUP:"OptGroup",P:"Paragraph",CAPTION:" TableCaption",TD:"TableDataCell",TH:"TableHeaderCell",COL:"TableCol",COLGROUP:"TableCol",TR:" TableRow",TBODY:"TableSection",THEAD:"TableSection",TFOOR:"TableSection",TEXTAREA:"TextArea",UL:"UList"};/*
+/*
  ieJS 
  (c) 2013 Christian Bodart https://github.com/standardjs/ie
  License: MIT
@@ -8,5 +8,6 @@ var elementInterfaces={A:"Anchor",BR:"BR",DATALIST:"DataList",DL:"DList",FIELDSE
 
 */
 var DEBUG=!0;
-(function(c,a,b,d,e){c.ie=a;a.scope=c;for(var f in b)a[f]=b[f];a.helper=new d;e.createType&&e.createType(Object,d,e);a.factory=arguments.callee})(window,function ie(a,b,d){d=0;for(var e=a.length;d!=e;d++)b&&ie[b].implement.apply(a[d]);return a},{register:function(c,a){if(DEBUG&&c in this)throw Error("ie.define - module ["+c+"] already defined");this[c]="function"==typeof a?a(this):a;this.global&&a.publish&&a.publish(this.scope)},extend:function(c,a){var b=this[c],d=b.implement,e=a.implement;b.implement=
-function(){d.apply(this);e.apply(this)}}},function(){},{createType:function(c,a,b){var d;c!=Object&&(a.prototype=new c,a.prototype.constructor=a);for(d in b)a.prototype[d]=b[d]},createFastMapperFunction:function(c){var a=[],b;for(b in c)a.push("t."+b+"=s."+b);a.push("return t");return new Function("t","s",a.join(";"))}});
+(function(b,a,c,d,e){b.ie=a;a.scope=b;for(var f in c)a[f]=c[f];a.helper=new d;e.createType&&e.createType(Object,d,e);a.factory=arguments.callee})(window,function ie(a,c,d){d=0;for(var e=a.length;d!=e;d++)c&&ie[c].implement.apply(a[d]);return a},{register:function(b,a){if(DEBUG&&b in this)throw Error("ie.define - module ["+b+"] already defined");this[b]="function"==typeof a?a(this):a;this.global&&a.publish&&a.publish(this.scope)},extend:function(b,a){var c=this[b],d=c.implement,e=a.implement;c.implement=
+function(){d.apply(this);e.apply(this)}}},function(){},{createType:function(b,a,c){var d;b!=Object&&(a.prototype=new b,a.prototype.constructor=a);for(d in c)a.prototype[d]=c[d]},createFastMapperFunction:function(b){var a=[],c;for(c in b)a.push("t."+c+"=s."+c);a.push("return t");return new Function("t","s",a.join(";"))},functionIsNative:function(b){return/^(\s*function[^\(]*\(\s*\)\s*\{\s*\[native code\]\s*\}\s*)|(\[\w+\s\w+\])$/.test(b)},objectIsNative:function(b){switch(typeof b){case "function":return this.functionIsNative(b);
+case "object":return!b.constructor||b.constructor!=Object&&this.functionIsNative(b.constructor)?!0:!1;default:return!0}}});

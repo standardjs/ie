@@ -1,4 +1,3 @@
-var elementInterfaces = {A:"Anchor", BR:"BR", DATALIST:"DataList", DL:"DList", FIELDSET:"FieldSet", FRAMESET:"FrameSet", HR:"HR", IFRAME:"IFrame", IMG:"Image", LI:"List", OL:"OList", OPTGROUP:"OptGroup", P:"Paragraph", CAPTION:" TableCaption", TD:"TableDataCell", TH:"TableHeaderCell", COL:"TableCol", COLGROUP:"TableCol", TR:" TableRow", TBODY:"TableSection", THEAD:"TableSection", TFOOR:"TableSection", TEXTAREA:"TextArea", UL:"UList"};
 /*
  ieJS 
  (c) 2013 Christian Bodart https://github.com/standardjs/ie
@@ -60,5 +59,22 @@ var DEBUG = true;
   }
   membersToMap.push("return t");
   return new Function("t", "s", membersToMap.join(";"))
+}, functionIsNative:function ie_Helper_functionIsNative(func) {
+  return/^(\s*function[^\(]*\(\s*\)\s*\{\s*\[native code\]\s*\}\s*)|(\[\w+\s\w+\])$/.test(func)
+}, objectIsNative:function ie_Helper_objectIsNative(object) {
+  switch(typeof object) {
+    case "function":
+      return this.functionIsNative(object);
+    case "object":
+      if(!object.constructor) {
+        return true
+      }
+      if(object.constructor != Object && this.functionIsNative(object.constructor)) {
+        return true
+      }
+      return false;
+    default:
+      return true
+  }
 }});
 

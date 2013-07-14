@@ -122,6 +122,27 @@ function (scope, ie, ie_static, ie_Helper, ie_Helper_prototype) {
             }
             membersToMap.push('return t')
             return new Function("t","s",membersToMap.join(";"))
+        },
+        functionIsNative: function ie_Helper_functionIsNative(func) {//firefox native constructors return as objects!
+            return /^(\s*function[^\(]*\(\s*\)\s*\{\s*\[native code\]\s*\}\s*)|(\[\w+\s\w+\])$/.test(func);
+        },
+        /**
+         * checks to see if an object is native (but doesn't work on all objects e.g. JSON)
+         * @memberof! ie_Helper.prototype
+         * @this {ie_Helper}
+        */
+        objectIsNative: function ie_Helper_objectIsNative(object) {
+            switch (typeof object) {
+                case "function": return this.functionIsNative(object);
+                case "object": {
+                    //do the magic here
+                    if (!object.constructor) return true;
+                    if (object.constructor!=Object && this.functionIsNative(object.constructor)) return true;
+                    return false; //
+
+                }
+                default: return true;
+            }
         }
 
     }
